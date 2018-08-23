@@ -1,0 +1,35 @@
+.contact, .contact-email, .contact-wechat, .contact-weibo {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  line-height: 10em;
+  text-indent: -9999px;
+  overflow: hidden;
+  background: url(../images/icon_contact.png) no-repeat;
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-size: auto auto;
+  background-size: 65px;
+}
+
+.contact-weibo {
+  background-position: -40px -60px;
+}
+
+.contact.contact-weibo:hover {
+  background-position: 0 -60px;
+}
+
+.navbar-brand {
+  align-items: center;
+}
+
+.main-title {
+  padding: 0.5rem 0.75rem;
+}
+
+#navMenu {
+  .navbar-item {
+    padding-left: 1rem;
+  }
+}
