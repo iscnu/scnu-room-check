@@ -72,18 +72,19 @@ export default {
     console.log(path)
     let url = ''
     switch (path) {
-      case 'sp':
+      case 'sp/':
+        url = 'https://ci.fengkx.top/api/out_sp.json'
+        break
+      case 'dxc/':
         url = ''
         break
-      case 'dxc':
-        url = ''
-        break
-      case 'nh':
+      case 'nh/':
         url = ''
         break
       default :
         url = ''
     }
+    console.log(url)
     axios.get(url, {
       headers: {
       },
@@ -117,7 +118,14 @@ export default {
     },
     updateTime () {
       const now = new Date(this.time)
-      return now
+      const ret = {}
+      ret.year = now.getFullYear()
+      ret.month = (now.getMonth() + 1)
+      ret.date = now.getDate()
+      ret.string = now.toUTCString()
+      ret.hour = now.getHours() < 10 ? '0' + now.getHours() : now.getHours()
+      ret.min = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()
+      return ret
     }
   }
 }

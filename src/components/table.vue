@@ -11,7 +11,11 @@
         :class="[(index % 2 === 0) ? 'even' : 'odd']"
       >
       </row>
-      <p class="updateTime">数据更新于<time :datetime="updateTime.toISOString()">{{updateTime.getFullYear()}}年{{updateTime.getMonth()+1}}月{{updateTime.getDate()}}日{{updateTime.getHours()}}:{{updateTime.getMinutes()}}</time></p>
+      <p class="updateTime">数据更新于
+        <time :datetime="updateTime.string">
+          {{updateTime.year}}年{{updateTime.month}}月{{updateTime.date}}日{{updateTime.hour}}:{{updateTime.min}}
+        </time>
+      </p>
     </div>
 </template>
 
