@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.1/css/bulma.min.css" integrity="sha256-zIG416V1ynj3Wgju/scU80KAEWOsO5rRLfVyRDuOv7Q=" crossorigin="anonymous">
-    <title>room_check</title>
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.1/css/bulma.min.css" integrity="sha256-zIG416V1ynj3Wgju/scU80KAEWOsO5rRLfVyRDuOv7Q=" crossorigin="anonymous">-->
+    <title>我要自习</title>
     <style>
       .loader {
         margin: 2rem;
@@ -37,20 +37,35 @@
         <div class="navbar-menu" id="navMenu">
         </div>
       </nav>
-      <div class="is-flex" style="justify-content: center">
+      <div class="is-flex" style="justify-content: center;min-height: 400px">
         <div class="loader"></div>
       </div>
     </div>
     <!-- built files will be auto injected -->
+    <div class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="image is-flex" style="align-items: center;justify-content: center">
+          <img src="/static/wechat_iscnu.png" style="width: 270px;height: 270px" alt="wechat_scnu">
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
     <footer class="footer" style="background: #fff; padding: 1.2rem 1.5rem 3rem;">
       <div class="container">
-        <div class="content is-pulled-right">
+        <div class="content  is-pulled-right">
           <a href="https://weibo.com/iscnu" class="contact contact-weibo" target="_blank"></a>
+          <a  class="contact contact-wechat" target="_blank"></a>
         </div>
-        <div class="content has-text-left">
-          <p>Copyright © 2008-2018 <a href="https://i.scnu.edu.cn/about" target="_blank">ISCNU</a>. All rights Reserved.<br><a href="https://i.scnu.edu.cn/about" target="_blank" style="color:#38485a; text-decoration:none">华南师范大学网络协会</a> 版权所有</p>
+        <div class="content is-small has-text-left">
+          <p>Copyright © 2008-2018 <a href="https://i.scnu.edu.cn/about" target="_blank">ISCNU</a><br>All rights Reserved.</br><a href="https://i.scnu.edu.cn/about" target="_blank" style="color:#38485a; text-decoration:none">华南师范大学网络协会</a> 技术部出品</p>
         </div>
       </div>
     </footer>
+  <script>
+    function toggleActive(el){el.classList.toggle('is-active')}(function(){let wechat=document.querySelector('.contact-wechat');if(navigator.userAgent.toLowerCase().indexOf('micromessenger')!==-1){wechat.setAttribute('href','https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5OTcwMzIxNA==&scene=124#wechat_redirect')}else{let wechat_close=document.querySelector('.modal-close')
+      let modals=document.querySelectorAll('.modal');for(let modal of modals){modal.onclick=function(){toggleActive(modal)}}
+      wechat.onclick=function(){toggleActive(modals[0])}}})()
+  </script>
   </body>
 </html>

@@ -1,9 +1,13 @@
+/* eslint-disable */
 <template>
 <div id="app" class="container">
   <navbar
   :menu="menu"
-  @toogleActive="toogleActive"
+  @toggleActive="toggleActive"
   />
+  <group class="areaPopUp">
+    <popup-picker @on-change="handleAreaChange" placeholder="请选择地点" value-text-align="center" :data="options" ref="picker" :columns="2" v-model="areaSelected" show-name></popup-picker>
+  </group>
   <!--<div class="columns is-mobile Select">-->
     <!--<Select-->
       <!--:options="areaOptions"-->
@@ -21,13 +25,18 @@
   <Table
     :rooms="rooms"
     :headerList="headerList"
-    :updateTime="updateTime"
   />
+  <p class="updateTime">数据更新于
+    <time :datetime="updateTime.string">
+      {{updateTime.year}}年{{updateTime.month}}月{{updateTime.date}}日{{updateTime.hour}}:{{updateTime.min}}
+    </time>
+  </p>
 </div>
 </template>
 
 <script>
-import Select from './components/select'
+import { PopupPicker, Cell, Group } from 'vux'
+// import Select from './components/select'
 import Table from './components/table'
 import navbar from './components/navbar'
 import axios from 'axios'
@@ -35,18 +44,81 @@ export default {
   name: 'App',
   components: {
     Table,
-    Select,
-    navbar
+    Group,
+    // Select,
+    navbar,
+    Cell,
+    PopupPicker
   },
   data () {
     return {
-      areaOptions: ['石牌', '大学城', '南海'],
-      areaSelected: 0,
-      buildingSelected: 0,
-      // headerList: ['教室', '1-2 节', '3-4 节', '5-6 节', '7-8 节', '9-11 节'],
-      headerList: ['教室', '1-2', '3-4', '5-6', '7-8', '9-11'],
+      options: [{
+        name: '石牌校区',
+        value: 'sp',
+        parent: 0
+      }, {
+        name: '大学城校区',
+        value: 'dxc',
+        parent: 0
+      }, {
+        name: '南海校区',
+        value: 'nh',
+        parent: 0
+      }, {
+        name: '北座',
+        value: 'north',
+        parent: 'sp'
+      }, {
+        name: '南座',
+        value: 'south',
+        parent: 'sp'
+      }, {
+        name: '教1栋',
+        value: 'j1d',
+        parent: 'dxc'
+      }, {
+        name: '教2栋',
+        value: 'j2d',
+        parent: 'dxc'
+      }, {
+        name: '教3栋',
+        value: 'j3d',
+        parent: 'dxc'
+      }, {
+        name: '教A栋',
+        value: 'jad',
+        parent: 'nh'
+      }, {
+        name: '教B栋',
+        value: 'jbd',
+        parent: 'nh'
+      }, {
+        name: '教C栋',
+        value: 'jcd',
+        parent: 'nh'
+      }],
+      // areaOptions: [{id: 'sp', text: '石牌'}, {id: 'dxc', text: '大学城'}, {id: 'nh', text: '南海'}],
+      areaSelected: [],
+      // buildingSelected: 0,
+      headerList: ['教室', '1-2节', '3-4节', '5-6节', '7-8节', '9-11节'],
+      // headerList: ['教室', '1-2', '3-4', '5-6', '7-8', '9-11'],
       rooms: [],
-      time: '',
+      time: 0,
+      // menu: [
+      //   {
+      //     text: '石牌校区',
+      //     url: '/sp'
+      //   },
+      //   {
+      //     text: '大学城',
+      //     url: '/dxc'
+      //   },
+      //   {
+      //     text: '南海校区',
+      //     url: '/nh'
+      //   }
+      // ],
+      // pulldownMenu: [
       menu: [
         {
           text: '网络协会 ISCNU',
@@ -70,6 +142,9 @@ export default {
   created: function () {
     const path = window.location.pathname.substring(1)
     console.log(path)
+    if (window.localStorage.areaSelected) {
+      this.areaSelected = window.localStorage.areaSelected.split(',')
+    }
     let url = ''
     switch (path) {
       case 'sp/':
@@ -98,24 +173,27 @@ export default {
       })
   },
   methods: {
-    changeAreaOption (index) {
-      this.areaSelected = index
-      this.buildingSelected = 0
-    },
-    changeBuildingOption (index) { this.buildingSelected = index },
-    toogleActive (event) { event.currentTarget.classList.toggle('is-active') }
+    // changeAreaOption (index) {
+    //   this.areaSelected = index
+    //   this.buildingSelected = 0
+    // },
+    // changeBuildingOption (index) { this.buildingSelected = index },
+    toggleActive (event) { event.currentTarget.classList.toggle('is-active') },
+    handleAreaChange () {
+      window.localStorage.areaSelected = this.areaSelected
+    }
   },
   computed: {
-    buildingOptions () {
-      switch (this.areaSelected) {
-        case 0:
-          return (['一课', '图书馆'])
-        case 1:
-          return (['教学楼', '图书馆'])
-        case 2:
-          return (['教学楼'])
-      }
-    },
+    // buildingOptions () {
+    //   switch (this.areaSelected) {
+    //     case 0:
+    //       return (['一课', '图书馆'])
+    //     case 1:
+    //       return (['教学楼', '图书馆'])
+    //     case 2:
+    //       return (['教学楼'])
+    //   }
+    // },
     updateTime () {
       const now = new Date(this.time)
       const ret = {}
@@ -139,7 +217,31 @@ export default {
   .Select {
     margin: $side-margin;
   }
+
   .Table {
     margin-top: 1rem;
   }
+  .updateTime {
+    margin-top: 1rem;
+    color: #999;
+    text-align: center;
+    font-size: smaller;
+  }
+  .areaPopUp {
+    .weui-cells {
+      margin-top: 0 !important;
+    }
+    .weui-cell__ft {
+      display: none;
+    }
+  }
+  .vux-popup-header-right {
+    color: hsl(171, 100%, 41%) !important;
+  }
+  .vux-popup-header-left {
+    color: hsl(0, 0%, 29%)  !important;
+  }
+</style>
+<style lang="less">
+  @import '~vux/src/styles/reset.less';
 </style>

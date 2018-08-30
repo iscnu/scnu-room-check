@@ -33,3 +33,10 @@
     padding-left: 1rem;
   }
 }
+.contact-wechat {
+  background-position: -40px 0;
+}
+
+.contact.contact-wechat:hover {
+  background-position: 0 0;
+}

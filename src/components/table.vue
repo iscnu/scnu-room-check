@@ -11,11 +11,6 @@
         :class="[(index % 2 === 0) ? 'even' : 'odd']"
       >
       </row>
-      <p class="updateTime">数据更新于
-        <time :datetime="updateTime.string">
-          {{updateTime.year}}年{{updateTime.month}}月{{updateTime.date}}日{{updateTime.hour}}:{{updateTime.min}}
-        </time>
-      </p>
     </div>
 </template>
 
@@ -23,7 +18,7 @@
 import row from '@/components/row'
 export default {
   name: 'Table',
-  props: ['rooms', 'headerList', 'updateTime'],
+  props: ['rooms', 'headerList'],
   components: {
     row
   },
@@ -62,12 +57,6 @@ export default {
     .columns {
       margin-right: $side-margin;
       margin-left: $side-margin;
-    }
-  .updateTime {
-    margin-top: 1rem;
-    color: hsl(0, 0%, 36%);
-    text-align: center;
-    font-size: smaller;
     }
   }
   .table-header {
