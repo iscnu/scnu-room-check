@@ -26,11 +26,11 @@
     :rooms="rooms"
     :headerList="headerList"
   />
-  <p class="updateTime">数据更新于
-    <time :datetime="updateTime.string">
-      {{updateTime.year}}年{{updateTime.month}}月{{updateTime.date}}日{{updateTime.hour}}:{{updateTime.min}}
-    </time>
-  </p>
+  <!--<p class="updateTime">数据更新于-->
+    <!--<time :datetime="updateTime.string">-->
+      <!--{{updateTime.year}}年{{updateTime.month}}月{{updateTime.date}}日{{updateTime.hour}}:{{updateTime.min}}-->
+    <!--</time>-->
+  <!--</p>-->
 </div>
 </template>
 
@@ -57,7 +57,7 @@ export default {
         value: 'sp',
         parent: 0
       }, {
-        name: '大学城校区',
+        name: '大学城',
         value: 'dxc',
         parent: 0
       }, {
@@ -65,36 +65,52 @@ export default {
         value: 'nh',
         parent: 0
       }, {
-        name: '北座',
-        value: 'north',
+        name: '一课北座',
+        value: '1',
         parent: 'sp'
       }, {
-        name: '南座',
-        value: 'south',
+        name: '一课南座',
+        value: '2',
+        parent: 'sp'
+      }, {
+        name: '一课东西座',
+        value: '3',
         parent: 'sp'
       }, {
         name: '教1栋',
-        value: 'j1d',
+        value: '4',
         parent: 'dxc'
       }, {
         name: '教2栋',
-        value: 'j2d',
+        value: '5',
         parent: 'dxc'
       }, {
         name: '教3栋',
-        value: 'j3d',
+        value: '6',
+        parent: 'dxc'
+      }, {
+        name: '教4栋',
+        value: '7',
+        parent: 'dxc'
+      }, {
+        name: '教5栋',
+        value: '8',
+        parent: 'dxc'
+      }, {
+        name: '教6栋',
+        value: '9',
         parent: 'dxc'
       }, {
         name: '教A栋',
-        value: 'jad',
+        value: '10',
         parent: 'nh'
       }, {
         name: '教B栋',
-        value: 'jbd',
+        value: '11',
         parent: 'nh'
       }, {
         name: '教C栋',
-        value: 'jcd',
+        value: '12',
         parent: 'nh'
       }],
       // areaOptions: [{id: 'sp', text: '石牌'}, {id: 'dxc', text: '大学城'}, {id: 'nh', text: '南海'}],
@@ -103,7 +119,7 @@ export default {
       headerList: ['教室', '1-2节', '3-4节', '5-6节', '7-8节', '9-11节'],
       // headerList: ['教室', '1-2', '3-4', '5-6', '7-8', '9-11'],
       rooms: [],
-      time: 0,
+      // time: 0,
       // menu: [
       //   {
       //     text: '石牌校区',
@@ -139,40 +155,28 @@ export default {
       ]
     }
   },
-  created: function () {
-    const path = window.location.pathname.substring(1)
-    console.log(path)
+  created () {
     if (window.localStorage.areaSelected) {
       this.areaSelected = window.localStorage.areaSelected.split(',')
     }
-    let url = ''
-    switch (path) {
-      case 'sp/':
-        url = 'https://ci.fengkx.top/api/out_sp.json'
-        break
-      case 'dxc/':
-        url = ''
-        break
-      case 'nh/':
-        url = ''
-        break
-      default :
-        url = ''
+    if (this.areaSelected[1]) {
+      this.qureyData()
     }
-    console.log(url)
-    axios.get(url, {
-      headers: {
-      },
-      responseType: 'json'
-    })
-      .then(res => {
-        this.rooms = res.data.data
-        this.time = res.data.time
-      }).catch(err => {
-        console.log(err)
-      })
   },
   methods: {
+    qureyData () {
+      const url = `https://ci.fengkx.top/api2/${this.areaSelected[1]}`
+      console.log(url)
+      axios.get(url, {
+        headers: {},
+        responseType: 'json'
+      })
+        .then(res => {
+          this.rooms = res.data
+        }).catch(err => {
+          console.log(err)
+        })
+    },
     // changeAreaOption (index) {
     //   this.areaSelected = index
     //   this.buildingSelected = 0
@@ -181,6 +185,7 @@ export default {
     toggleActive (event) { event.currentTarget.classList.toggle('is-active') },
     handleAreaChange () {
       window.localStorage.areaSelected = this.areaSelected
+      this.qureyData()
     }
   },
   computed: {
@@ -230,6 +235,9 @@ export default {
   .areaPopUp {
     .weui-cells {
       margin-top: 0 !important;
+    }
+    .weui-cells::before {
+      border-top: 1px solid #EEE;
     }
     .weui-cell__ft {
       display: none;

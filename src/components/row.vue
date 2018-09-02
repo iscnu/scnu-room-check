@@ -52,6 +52,9 @@ export default {
       min-height: 4rem;
       padding: .8rem 1.8rem;
     }
+    @media (max-width: 320px){
+      padding: 1rem 0.3rem
+    }
   }
 
 </style>
