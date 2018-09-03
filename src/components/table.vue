@@ -9,13 +9,15 @@
         :rows="real_rows"
         :key="room.name"
         :class="[(index % 2 === 0) ? 'even' : 'odd']"
+        :roomIndex="index"
+        @displayDetail="displayDetail"
       >
       </row>
     </div>
 </template>
 
 <script>
-import row from '@/components/row'
+import row from '@/components/row';
 export default {
   name: 'Table',
   props: ['rooms', 'headerList'],
@@ -26,9 +28,15 @@ export default {
     return {
       rows: 'column is-2-mobile is-size-7-mobile',
       real_rows: 'rows column is-2-mobile is-size-7-mobile'
+    };
+  },
+  methods: {
+    displayDetail (event) {
+      console.log(event.currentTarget);
+      event.currentTarget.querySelector('.modal').classList.toggle('is-active');
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

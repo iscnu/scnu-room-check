@@ -33,14 +33,14 @@ export default {
   methods: {
     handleDropdownClick (event) {
       // event.currentTarget.classList.toggle('is-active')
-      this.$emit('toogleActive', event)
+      this.$emit('toogleActive', event);
     },
     handleOptionClick (index) {
       // console.log(index)
-      this.$emit('changeOption', index)
+      this.$emit('changeOption', index);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -2,14 +2,27 @@
     <div class="columns table-room is-mobile has-text-centered">
       <span :class="rows " class="has-text-centered">
         <span>{{room_items.name}}</span>
-        <span class="is-hidden-mobile has-text-grey">|</span>
-        <span class=" is-hidden-mobile has-text-grey">容量：{{room_items.seats}}
-        </span>
       </span>
         <span v-for="(status, index) in room_items.status"
-              :class="[status ? 'empty' :'busy', rows]"
-              :key="index" >
-          <span>{{ status ? '空置' : '占用'}}</span>
+              :class="[status ? 'busy' : 'empty', rows]"
+              @click="handleGridClick($event)"
+              :key="index"
+              :roomIndex="roomIndex"
+              :status_index="index">
+          <span>{{ status ? '占用' : '空置'}}</span>
+          <div v-if="status" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+              <div class="box">
+                <div class="content">
+                  <p>课程： {{status.name}}</p>
+                  <p>老师： {{status.teacher[0]}}</p>
+                  <p>开课学院： {{status.department}}</p>
+                </div>
+              </div>
+            </div>
+            <button class="modal-close is-large" aria-label="close"></button>
+          </div>
       </span>
     </div>
 </template>
@@ -23,11 +36,20 @@ export default {
     },
     rows: {
       type: String
+    },
+    roomIndex: {
+      type: Number
     }
   },
-  computed: {
+  methods: {
+    handleGridClick (event) {
+      this.$emit('displayDetail', event);
+    },
+    closeDetail (event) {
+      this.$emit('closeDetail', event);
+    }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -54,6 +76,16 @@ export default {
     }
     @media (max-width: 320px){
       padding: 1rem 0.3rem
+    }
+  }
+  .modal {
+    .modal-content {
+      p {
+        font-size: 1.2rem;
+      }
+    }
+    .box {
+      background-color: #efefef;
     }
   }
 

@@ -51,17 +51,17 @@ export default {
     }
     // pulldownMenu: {
     //   type: Array
-      // required: true
+    // required: true
     // }
   },
   methods: {
     handleBurgerClick (event) {
-      this.$emit('toggleActive', event)
-      const id = event.currentTarget.getAttribute('data-target')
-      document.getElementById(id).classList.toggle('is-active')
+      this.$emit('toggleActive', event);
+      const id = event.currentTarget.getAttribute('data-target');
+      document.getElementById(id).classList.toggle('is-active');
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

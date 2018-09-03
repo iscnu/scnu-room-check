@@ -8,44 +8,23 @@
   <group class="areaPopUp">
     <popup-picker @on-change="handleAreaChange" placeholder="请选择地点" value-text-align="center" :data="options" ref="picker" :columns="2" v-model="areaSelected" show-name></popup-picker>
   </group>
-  <!--<div class="columns is-mobile Select">-->
-    <!--<Select-->
-      <!--:options="areaOptions"-->
-      <!--:selected="areaSelected"-->
-      <!--@toogleActive="toogleActive"-->
-      <!--@changeOption="changeAreaOption"-->
-    <!--/>-->
-    <!--<Select-->
-      <!--:options="buildingOptions"-->
-      <!--:selected="buildingSelected"-->
-      <!--@toogleActive="toogleActive"-->
-      <!--@changeOption="changeBuildingOption"-->
-    <!--/>-->
-  <!--</div>-->
   <Table
     :rooms="rooms"
     :headerList="headerList"
   />
-  <!--<p class="updateTime">数据更新于-->
-    <!--<time :datetime="updateTime.string">-->
-      <!--{{updateTime.year}}年{{updateTime.month}}月{{updateTime.date}}日{{updateTime.hour}}:{{updateTime.min}}-->
-    <!--</time>-->
-  <!--</p>-->
-</div>
+ </div>
 </template>
 
 <script>
-import { PopupPicker, Cell, Group } from 'vux'
-// import Select from './components/select'
-import Table from './components/table'
-import navbar from './components/navbar'
-import axios from 'axios'
+import { PopupPicker, Cell, Group } from 'vux';
+import Table from './components/table';
+import navbar from './components/navbar';
+import axios from 'axios';
 export default {
   name: 'App',
   components: {
     Table,
     Group,
-    // Select,
     navbar,
     Cell,
     PopupPicker
@@ -113,28 +92,9 @@ export default {
         value: '12',
         parent: 'nh'
       }],
-      // areaOptions: [{id: 'sp', text: '石牌'}, {id: 'dxc', text: '大学城'}, {id: 'nh', text: '南海'}],
       areaSelected: [],
-      // buildingSelected: 0,
       headerList: ['教室', '1-2节', '3-4节', '5-6节', '7-8节', '9-11节'],
-      // headerList: ['教室', '1-2', '3-4', '5-6', '7-8', '9-11'],
       rooms: [],
-      // time: 0,
-      // menu: [
-      //   {
-      //     text: '石牌校区',
-      //     url: '/sp'
-      //   },
-      //   {
-      //     text: '大学城',
-      //     url: '/dxc'
-      //   },
-      //   {
-      //     text: '南海校区',
-      //     url: '/nh'
-      //   }
-      // ],
-      // pulldownMenu: [
       menu: [
         {
           text: '网络协会 ISCNU',
@@ -153,65 +113,50 @@ export default {
           url: 'http://bbs.scnu.edu.cn'
         }
       ]
-    }
+    };
   },
   created () {
     if (window.localStorage.areaSelected) {
-      this.areaSelected = window.localStorage.areaSelected.split(',')
+      this.areaSelected = window.localStorage.areaSelected.split(',');
     }
     if (this.areaSelected[1]) {
-      this.qureyData()
+      this.qureyData();
     }
   },
   methods: {
     qureyData () {
-      const url = `https://ci.fengkx.top/api2/${this.areaSelected[1]}`
-      console.log(url)
+      const url = `https://ci.fengkx.top/api2/${this.areaSelected[1]}`;
+      console.log(url);
       axios.get(url, {
         headers: {},
         responseType: 'json'
       })
         .then(res => {
-          this.rooms = res.data
+          this.rooms = res.data;
         }).catch(err => {
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
-    // changeAreaOption (index) {
-    //   this.areaSelected = index
-    //   this.buildingSelected = 0
-    // },
-    // changeBuildingOption (index) { this.buildingSelected = index },
-    toggleActive (event) { event.currentTarget.classList.toggle('is-active') },
+    toggleActive (event) { event.currentTarget.classList.toggle('is-active'); },
     handleAreaChange () {
-      window.localStorage.areaSelected = this.areaSelected
-      this.qureyData()
+      window.localStorage.areaSelected = this.areaSelected;
+      this.qureyData();
     }
   },
   computed: {
-    // buildingOptions () {
-    //   switch (this.areaSelected) {
-    //     case 0:
-    //       return (['一课', '图书馆'])
-    //     case 1:
-    //       return (['教学楼', '图书馆'])
-    //     case 2:
-    //       return (['教学楼'])
-    //   }
-    // },
     updateTime () {
-      const now = new Date(this.time)
-      const ret = {}
-      ret.year = now.getFullYear()
-      ret.month = (now.getMonth() + 1)
-      ret.date = now.getDate()
-      ret.string = now.toUTCString()
-      ret.hour = now.getHours() < 10 ? '0' + now.getHours() : now.getHours()
-      ret.min = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()
-      return ret
+      const now = new Date(this.time);
+      const ret = {};
+      ret.year = now.getFullYear();
+      ret.month = (now.getMonth() + 1);
+      ret.date = now.getDate();
+      ret.string = now.toUTCString();
+      ret.hour = now.getHours() < 10 ? '0' + now.getHours() : now.getHours();
+      ret.min = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
+      return ret;
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
