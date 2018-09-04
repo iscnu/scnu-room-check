@@ -5,7 +5,7 @@
       </div>
       <row
         v-for="(room, index) in rooms"
-        :room_items="room"
+        :room_items="room.data"
         :rows="real_rows"
         :key="room.name"
         :class="[(index % 2 === 0) ? 'even' : 'odd']"
@@ -32,7 +32,6 @@ export default {
   },
   methods: {
     displayDetail (event) {
-      console.log(event.currentTarget);
       event.currentTarget.querySelector('.modal').classList.toggle('is-active');
     }
   }

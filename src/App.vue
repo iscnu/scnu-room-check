@@ -1,10 +1,9 @@
-/* eslint-disable */
 <template>
-<div id="app" class="container">
-  <navbar
-  :menu="menu"
-  @toggleActive="toggleActive"
-  />
+<div v-if="!loading" id="app">
+  <!--<navbar-->
+  <!--:menu="menu"-->
+  <!--@toggleActive="toggleActive"-->
+  <!--/>-->
   <group class="areaPopUp">
     <popup-picker @on-change="handleAreaChange" placeholder="请选择地点" value-text-align="center" :data="options" ref="picker" :columns="2" v-model="areaSelected" show-name></popup-picker>
   </group>
@@ -18,25 +17,26 @@
 <script>
 import { PopupPicker, Cell, Group } from 'vux';
 import Table from './components/table';
-import navbar from './components/navbar';
+// import navbar from './components/navbar';
 import axios from 'axios';
 export default {
   name: 'App',
   components: {
     Table,
     Group,
-    navbar,
+    // navbar,
     Cell,
     PopupPicker
   },
   data () {
     return {
+      loading: '',
       options: [{
         name: '石牌校区',
         value: 'sp',
         parent: 0
       }, {
-        name: '大学城',
+        name: '大学城校区',
         value: 'dxc',
         parent: 0
       }, {
@@ -112,7 +112,8 @@ export default {
           text: '陶园PT',
           url: 'http://bbs.scnu.edu.cn'
         }
-      ]
+      ],
+      updateDay: ''
     };
   },
   created () {
@@ -120,27 +121,36 @@ export default {
       this.areaSelected = window.localStorage.areaSelected.split(',');
     }
     if (this.areaSelected[1]) {
-      this.qureyData();
+      this.queryData();
+    }
+  },
+  mounted () {
+    if (!window.localStorage.areaSelected) {
+      document.querySelector('.areaPopUp').querySelector('.vux-tap-active').click();
     }
   },
   methods: {
-    qureyData () {
-      const url = `https://ci.fengkx.top/api2/${this.areaSelected[1]}`;
-      console.log(url);
+    queryData () {
+      this.loading = true;
+      // const url = `https://ci.fengkx.top/api2/${this.areaSelected[1]}`;
+      const url = `https://localhost:3000/${this.areaSelected[1]}`;
       axios.get(url, {
         headers: {},
         responseType: 'json'
       })
         .then(res => {
-          this.rooms = res.data;
+          this.rooms = res.data.data;
+          this.updateDay = res.data.day;
+          this.loading = false;
         }).catch(err => {
           console.log(err);
+          this.loading = false;
         });
     },
     toggleActive (event) { event.currentTarget.classList.toggle('is-active'); },
     handleAreaChange () {
       window.localStorage.areaSelected = this.areaSelected;
-      this.qureyData();
+      this.queryData();
     }
   },
   computed: {
@@ -178,11 +188,13 @@ export default {
     font-size: smaller;
   }
   .areaPopUp {
+    border: 1px solid #eee;
+    margin: 0.2rem;
     .weui-cells {
       margin-top: 0 !important;
     }
     .weui-cells::before {
-      border-top: 1px solid #EEE;
+      border-top: 0 !important;
     }
     .weui-cell__ft {
       display: none;

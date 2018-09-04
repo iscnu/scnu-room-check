@@ -9,6 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const {GenerateSW} = require('workbox-webpack-plugin');
 
 const env = require('../config/prod.env')
 
@@ -106,8 +107,21 @@ const webpackConfig = merge(baseWebpackConfig, {
         from: path.resolve(__dirname, '../static'),
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
+      },
+      {
+        from: path.resolve(__dirname, '../dist_root/mainfest.json'),
+        to: config.build.assetsRoot
       }
-    ])
+    ]),
+    new GenerateSW({
+      runtimeCaching: [{
+        // Match any same-origin request that contains 'api'.
+        urlPattern: /api/,
+        handler: 'networkFirst'
+        }
+       ],
+      include: [/\.html$/, /\.js$/, /\.css$/, /\.png$/]
+    })
   ]
 })
 

@@ -27,7 +27,9 @@
 .main-title {
   padding: 0.5rem 0.75rem;
 }
-
+.mainTitle {
+  padding: .35rem .35rem .2rem;
+}
 #navMenu {
   .navbar-item {
     padding-left: 1rem;
@@ -42,8 +44,32 @@
 }
 
 .loader {
-  margin: 2rem;
+  margin: 5rem;
   border-width: 0.15rem;
-  width: 10rem;
-  height: 10rem;
+  width: 8rem;
+  height: 8rem;
+}
+.loaderContainer {
+  justify-content: center;
+  min-height: 400px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+}
+.footer {
+  background: #fff;
+  padding: 2rem 1rem 2rem;
+  position: static;
+  width: 100%;
+  bottom: 0;
+  p {
+    @media (max-width: 320px){
+      font-size: 0.6rem;
+    }
+  }
+}
+.main-container {
+  min-height: 400px;
 }

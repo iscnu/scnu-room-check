@@ -1,0 +1,9 @@
+{
+  "name": "ISCNU 我要自习",
+  "short_name": "我要自习",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "browser",
+  "scope": "/",
+  "start_url": "/"
+}
