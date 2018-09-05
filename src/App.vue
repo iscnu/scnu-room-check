@@ -11,6 +11,11 @@
     :rooms="rooms"
     :headerList="headerList"
   />
+  <p class="updateTime">数据更新于
+    <span>
+      {{updateDay}}
+    </span>
+  </p>
  </div>
 </template>
 
@@ -132,8 +137,9 @@ export default {
   methods: {
     queryData () {
       this.loading = true;
-      // const url = `https://ci.fengkx.top/api2/${this.areaSelected[1]}`;
-      const url = `https://localhost:3000/${this.areaSelected[1]}`;
+      const url = `https://ci.fengkx.top/api2/${this.areaSelected[1]}`;
+      // const url = `https://localhost:3000/${this.areaSelected[1]}`;
+      console.log(url);
       axios.get(url, {
         headers: {},
         responseType: 'json'

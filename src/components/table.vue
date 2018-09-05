@@ -5,7 +5,7 @@
       </div>
       <row
         v-for="(room, index) in rooms"
-        :room_items="room.data"
+        :room_items="room"
         :rows="real_rows"
         :key="room.name"
         :class="[(index % 2 === 0) ? 'even' : 'odd']"

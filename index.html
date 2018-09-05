@@ -72,6 +72,7 @@
         $el.onclick = function () {
           let target = $el.dataset.target;
           let $target = document.getElementById(target);
+          $el.classList.toggle('is-active');
           $target.classList.toggle('is-active');
         }
       })
@@ -85,13 +86,13 @@
     })()
   </script>
   <script>
-    // Check that service workers are registered
-    if ('serviceWorker' in navigator) {
-      // Use the window load event to keep the page load performant
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js');
-      });
-    }
+    // // Check that service workers are registered
+    // if ('serviceWorker' in navigator) {
+    //   // Use the window load event to keep the page load performant
+    //   window.addEventListener('load', () => {
+    //     navigator.serviceWorker.register('/service-worker.js');
+    //   });
+    // }
   </script>
   </body>
 </html>
