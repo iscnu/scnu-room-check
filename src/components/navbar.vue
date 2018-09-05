@@ -3,7 +3,7 @@
     <div class="navbar-brand">
       <div class="navbar-item">
         <a href="https://i.scnu.edu.cn">
-          <img src="../assets/images/logo.png" alt="logo">
+          <img src="../../static/logo.png" alt="logo">
         </a>
         <div class="main-title title is-5 has-text-grey has-text-centered">
           我要自习
