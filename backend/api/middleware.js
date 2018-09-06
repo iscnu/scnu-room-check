@@ -4,7 +4,7 @@ exports.getWeek = async (ctx, next) => {
   const now = new Date();
   const base = new Date(config.startDate);
   ctx.state.week = Math.ceil((now.getTime() - base.getTime()) / 1000 / 604800);
-  ctx.state.day = now.getDay() ? now.getDay() : 7;
+  ctx.state.day = now.getDay() || 7;
   await next();
 };
 

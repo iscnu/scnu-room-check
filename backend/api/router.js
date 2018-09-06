@@ -32,7 +32,11 @@ router.get('/:part/:week?/:day?', async (ctx, next) => {
   const day = ctx.params.day || ctx.state.day;
   // console.log(ctx.params.part, ctx.params.week, ctx.params.day)
   // console.log(week, day, ctx.params.part)
-  let result = await getRoomStatusList(week, day, ctx.params.part);
+  let data = await getRoomStatusList(week, day, ctx.params.part);
+  let result = {
+    day: [false, '本周一', '本周二', '本周三', '本周四', '本周五', '本周六', '本周日'][day],
+    data
+  };
   ctx.type = 'application/json';
   ctx.body = (JSON.stringify(result, null, 2));
 });
