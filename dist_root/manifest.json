@@ -4,8 +4,8 @@
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "minimal-ui",
-  "Scope": "/",
-  "start_url": "/zixi",
+  "Scope": "/zixi",
+  "start_url": "/zixi/index.html",
   "icons": [
     {
       "src": "images/icons/icon-72x72.png",
