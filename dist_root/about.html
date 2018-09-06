@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.1/css/bulma.min.css">
+  <title>关于 - 我要自习</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+  <link rel="stylesheet" href="about.css">
+  <style>
+    a:link { text-decoration: none;color: inherit}
+    a:visited { text-decoration: none;color: inherit}
+  </style>
+</head>
+<body>
+<div class="container">
+  <nav role="navigation" aria-label="main navigation" class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <a href="/" style="padding-top: .4rem;">
+          <img src="static/logo.png" style="width: 13rem;" alt="logo">
+        </a>
+      </div>
+      <div data-target="navMenu" class="navbar-burger"><span></span><span></span><span></span></div>
+    </div>
+    <div id="navMenu" class="navbar-menu">
+      <div class="navbar-end">
+        <a href="https://i.scnu.edu.cn" class="navbar-item">网络协会 ISCNU</a>
+        <a href="http://bbs.scnu.edu.cn" class="navbar-item">新陶园BBS</a>
+        <a href="http://wiki.scnu.edu.cn" class="navbar-item">华师百科</a>
+        <a href="http://bbs.scnu.edu.cn" class="navbar-item">陶园PT</a>
+      </div>
+    </div>
+  </nav>
+</div>
+<section class="hero is-primary  is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        我要自习
+      </h1>
+      <h2 class="subtitle">
+        这是一个查询教室使用情况的网站，通过它您可以一目了然的了解到学校教学楼当天的上课情况，方便找到合适的教室自习
+      </h2>
+    </div>
+  </div>
+</section>
+<div class="container">
+  <section id="content" class="section">
+    <article class="content">
+      <h3>使用方法</h3>
+      <p>使用的方式非常简单。在<a href="/">程序首页</a>选择要查询的地点。就能看到相应地点各个教室的使用情况。</p>
+      <p><img class="image" src="static/result.jpg"></p>
+      <p>点击上课课室可以看到课程详情。</p>
+      <p>
+        <img class="image" src="static/detail.jpg">
+      </p>
+    </article>
+    <article class="message is-warning">
+      <div class="message-body">
+        由于数据来源有限，课室使用不包括<strong>借用</strong>等除上课以外的情况
+      </div>
+    </article>
+    <article class="content">
+      <p>如果您觉得用起来还不错，而且浏览器支持例如(Chrome)。您还可以选择将它加入到主屏以方便使用。</p>
+      <p><img src="static/app_list.jpg"></p>
+      <hr>
+      <h3>更新日志</h3>
+      <div><span class="tag is-primary">1.0</span><span>课室使用情况查询和详情实现</span></div>
+      <hr>
+      <p>作者: <a href="http://fengkx.top">fengkx</a>, <a href="http://blog.izgq.net">qing</a></p>
+      <p>感谢 We川大 带来的灵感</p>
+      <p>若您对本网站有什么疑问或建议，可以在<a class="wechat_link navbar-item is-paddingless" style="display: inline">ISCNU公众号</a>留言哦</p>
+    </article>
+
+  </section>
+</div>
+<div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="image is-flex" style="align-items: center;justify-content: center">
+      <img src="static/qr.png" style="width: 300px;height:360px" alt="wechat_scnu">
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+<footer class="footer">
+  <div class="container">
+    <div class="content  is-pulled-right">
+      <a href="https://weibo.com/iscnu" class="contact contact-weibo" target="_blank"></a>
+      <a  class="contact contact-wechat wechat_link" target="_blank"></a>
+    </div>
+    <div class="content is-small has-text-left">
+      <p>Copyright © 2008-2018 <a href="https://i.scnu.edu.cn/about" target="_blank">ISCNU</a> All rights Reserved.</br><a href="https://i.scnu.edu.cn/about" target="_blank" style="color:#38485a; text-decoration:none">华南师范大学网络协会</a>技术部出品</p>
+    </div>
+  </div>
+</footer>
+<script>
+  (function() {
+    let wechat = document.querySelectorAll('.wechat_link');
+    if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) {
+      wechat.forEach(function ($el) {
+        $el.setAttribute('href', 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5OTcwMzIxNA==&scene=124#wechat_redirect')
+      })
+    } else {
+      let wechat_close = document.querySelector('.modal-close')
+      let modal = document.querySelector('.modal');
+      wechat.forEach(function ($el) {
+        $el.addEventListener('click', function() {
+          modal.classList.toggle('is-active')
+        })
+      })
+    }
+    let $navbarBurger = document.querySelectorAll('.navbar-burger');
+    $navbarBurger.forEach(($el) => {
+      $el.onclick = function () {
+        let target = $el.dataset.target;
+        let $target = document.getElementById(target);
+        $el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+      }
+    })
+    let $modalClose = document.querySelectorAll('.modal-close');
+    $modalClose.forEach($el => {
+      $el.onclick = function () {
+        $el.parentNode.classList.toggle('is-active');
+      }
+    })
+
+  })()
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+.contact,
+.contact-email,
+.contact-wechat,
+.contact-weibo {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  line-height: 10em;
+  text-indent: -9999px;
+  overflow: hidden;
+  background: url(../images/icon_contact.png) no-repeat;
+  //background: url(../src/assets/images/icon_contact.png) no-repeat;
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-size: auto auto;
+  background-size: 65px;
+}
+.contact-weibo {
+  background-position: -40px -60px;
+}
+
+.contact.contact-weibo:hover {
+  background-position: 0 -60px;
+}
+
+.navbar-brand {
+  align-items: center;
+}
+
+.main-title {
+  padding: 0.5rem 0.75rem;
+}
+.mainTitle {
+  padding: .35rem .35rem .2rem;
+}
+#navMenu {
+  .navbar-item {
+    padding-left: 1rem;
+  }
+}
+.contact-wechat {
+  background-position: -40px 0;
+}
+
+.contact.contact-wechat:hover {
+  background-position: 0 0;
+}
+
+.loader {
+  margin: 5rem;
+  border-width: 0.15rem;
+  width: 8rem;
+  height: 8rem;
+}
+.loaderContainer {
+  justify-content: center;
+  min-height: 400px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  margin-top: 3rem;
+}
+.footer {
+  background: #fff;
+  padding: 2rem 1rem 2rem;
+  position: static;
+  width: 100%;
+  bottom: 0;
+  p {
+    @media (max-width: 320px){
+      font-size: 0.6rem;
+    }
+  }
+}
+.main-container {
+  min-height: 400px;
+}
+
+// about
+
+p {
+  padding: 0.15rem;
+}
+
+.tag {
+  margin-right: .5rem;
+}
