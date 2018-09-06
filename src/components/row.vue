@@ -3,7 +3,7 @@
       <span :class="rows " class="has-text-centered">
         <span>{{room_items.name}}</span>
       </span>
-        <span v-for="(status, index) in statuses"
+        <span v-for="(status, index) in room_items.status"
               :class="[status ? 'busy' : 'empty', rows]"
               @click="handleGridClick($event)"
               :key="index"
@@ -85,40 +85,21 @@ export default {
     },
     closeDetail (event) {
       this.$emit('closeDetail', event);
-    },
-    processOrder (arr) {
-      let out = [];
-      let first = arr[0];
-      let end = arr[0];
-      for (let i = 1; i < arr.length; i++) {
-        if (arr[i] === end + 1) {
-          end = arr[i];
-          if (i + 1 === arr.length) {
-            out.push(`${first}-${end}`);
-          }
-        } else {
-          out.push(`${first}-${end}`);
-          first = arr[i];
-          end = arr[i];
-        }
-      }
-      return out;
     }
   },
   data () {
     return {
-      classMap: ['第1-2节', '第3-4节', '第5-6节', '第7-8节', '第9-11节'],
-      statuses: this.room_items.status
+      classMap: ['第1-2节', '第3-4节', '第5-6节', '第7-8节', '第9-11节']
     };
   },
   computed: {
     classList () {
-      let out = [];
-      const statuses = this.room_items.status;
+      let out = []; // 准备容器
+      const statuses = this.room_items.status; // 拿到当前行（课室）的状态列表
       for (let item of statuses) {
-        if (item.order) {
+        if (item.order) { // 如果有课
           const order = item.order;
-          if (order.length === 1) { out.push(order[0]); }
+          if (order.length === 1) { out.push(order[0]); } // 只上一节
           let beg = order[0];
           let ending = order[0];
           for (let i = 1; i < order.length; i++) {
@@ -133,7 +114,7 @@ export default {
               ending = order[i];
             }
           }
-        } else {
+        } else { // 无课
           out.push(false);
         }
       }
@@ -161,23 +142,15 @@ export default {
     align-items: center;
     justify-content: center;
     flex-wrap: nowrap;
-    @media (min-width: 640px) and (max-width: 1600px){
+    @media (min-width: 640px) and (max-width: 1600px){ // 大屏
       min-height: 4rem;
       padding: .8rem 1.8rem;
     }
-    @media (max-width: 320px){
+    @media (max-width: 320px){ //iPhone SE 很小的屏
       padding: 1rem 0.3rem
     }
   }
   .modal {
-    /*.modal-content {*/
-      /*p {*/
-        /*!*font-size: 1.2rem;*!*/
-      /*}*/
-    /*}*/
-    /*.box {*/
-      /*background-color: #efefef;*/
-    /*}*/
     .modal-card-head {
       p {
         font-size: 1.1rem;

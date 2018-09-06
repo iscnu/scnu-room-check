@@ -109,9 +109,18 @@ const webpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       },
       {
-        from: path.resolve(__dirname, '../dist_root/mainfest.json'),
+        from: path.resolve(__dirname, '../dist_root/manifest.json'),
         to: config.build.assetsRoot
-      }
+      },
+      {
+        from: path.resolve(__dirname, '../dist_root/favicon.png'),
+        to: config.build.assetsRoot
+      },
+      {
+        from: path.resolve(__dirname, '../dist_root/manifest_need'),
+        to: config.build.assetsRoot,
+        ignore: ['.*']
+      },
     ]),
     new GenerateSW({
       runtimeCaching: [{

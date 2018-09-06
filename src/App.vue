@@ -1,9 +1,5 @@
 <template>
 <div v-if="!loading" id="app">
-  <!--<navbar-->
-  <!--:menu="menu"-->
-  <!--@toggleActive="toggleActive"-->
-  <!--/>-->
   <group class="areaPopUp">
     <popup-picker @on-change="handleAreaChange" placeholder="请选择地点" value-text-align="center" :data="options" ref="picker" :columns="2" v-model="areaSelected" show-name></popup-picker>
   </group>
@@ -22,21 +18,19 @@
 <script>
 import { PopupPicker, Cell, Group } from 'vux';
 import Table from './components/table';
-// import navbar from './components/navbar';
 import axios from 'axios';
 export default {
   name: 'App',
   components: {
     Table,
     Group,
-    // navbar,
     Cell,
     PopupPicker
   },
   data () {
     return {
-      loading: '',
-      options: [{
+      loading: '', // 是否正在请求数据 boolean
+      options: [{ // popup-picker 选项
         name: '石牌校区',
         value: 'sp',
         parent: 0
@@ -97,31 +91,13 @@ export default {
         value: '12',
         parent: 'nh'
       }],
-      areaSelected: [],
-      headerList: ['教室', '1-2节', '3-4节', '5-6节', '7-8节', '9-11节'],
-      rooms: [],
-      menu: [
-        {
-          text: '网络协会 ISCNU',
-          url: 'https://i.scnu.edu.cn'
-        },
-        {
-          text: '新陶园BBS',
-          url: 'http://bbs.scnu.edu.cn'
-        },
-        {
-          text: '华师百科',
-          url: 'http://wiki.scnu.edu.cn'
-        },
-        {
-          text: '陶园PT',
-          url: 'http://bbs.scnu.edu.cn'
-        }
-      ],
-      updateDay: ''
+      headerList: ['教室', '1-2节', '3-4节', '5-6节', '7-8节', '9-11节'], // 表头
+      rooms: [], // API得到的各个课室的信息 Array
+      updateDay: '' // API得到的数据更新的星期 String 如 本周一
     };
   },
   created () {
+    // 若有选择过区域，尽早开始API请求
     if (window.localStorage.areaSelected) {
       this.areaSelected = window.localStorage.areaSelected.split(',');
     }
@@ -130,6 +106,7 @@ export default {
     }
   },
   mounted () {
+    // 新用户弹出选择
     if (!window.localStorage.areaSelected) {
       document.querySelector('.areaPopUp').querySelector('.vux-tap-active').click();
     }
@@ -137,9 +114,8 @@ export default {
   methods: {
     queryData () {
       this.loading = true;
+      // API: /part/week/day
       const url = `https://ci.fengkx.top/api2/${this.areaSelected[1]}`;
-      // const url = `https://localhost:3000/${this.areaSelected[1]}`;
-      console.log(url);
       axios.get(url, {
         headers: {},
         responseType: 'json'
@@ -153,23 +129,10 @@ export default {
           this.loading = false;
         });
     },
-    toggleActive (event) { event.currentTarget.classList.toggle('is-active'); },
     handleAreaChange () {
+      // 选择区域时缓存并请求数据
       window.localStorage.areaSelected = this.areaSelected;
       this.queryData();
-    }
-  },
-  computed: {
-    updateTime () {
-      const now = new Date(this.time);
-      const ret = {};
-      ret.year = now.getFullYear();
-      ret.month = (now.getMonth() + 1);
-      ret.date = now.getDate();
-      ret.string = now.toUTCString();
-      ret.hour = now.getHours() < 10 ? '0' + now.getHours() : now.getHours();
-      ret.min = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes();
-      return ret;
     }
   }
 };
@@ -180,10 +143,6 @@ export default {
     line-height: 1.8;
   }
   $side-margin: 0.1rem;
-  .Select {
-    margin: $side-margin;
-  }
-
   .Table {
     margin-top: 1rem;
   }
