@@ -1,0 +1,18 @@
+{
+  "name": "scnu_schedule_db",
+  "version": "1.0.0",
+  "description": "collect scnu all schedule",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "api": "node ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.5.2",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "sqlite3": "^4.0.2"
+  }
+}
