@@ -11,7 +11,7 @@
       :headerList="headerList"
     />
   </div>
-  <p class="updateTime">数据更新于
+  <p v-if="areaSelected.length" class="updateTime">数据更新于
     <span>
       {{updateDay}}
     </span>
