@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/favicon.png"/>
-    <title>我要自习</title>
+    <link rel="icon" href="./favicon.png"/>
+    <title>我要自习 - ISCNU</title>
   </head>
   <body>
   <div class="container">
@@ -13,14 +13,14 @@
   <nav role="navigation" aria-label="main navigation" class="navbar">
     <div class="navbar-brand">
     <div class="navbar-item">
-      <a href="/" style="padding-top: .4rem;">
+      <a href="./" style="padding-top: .4rem;">
         <img src="static/logo.png" style="width: 13rem;" alt="logo">
       </a>
     </div>
     <div data-target="navMenu" class="navbar-burger"><span></span><span></span><span></span></div>
     </div> <div id="navMenu" class="navbar-menu">
       <div class="navbar-end">
-        <a href="https://i.scnu.edu.cn" class="navbar-item">网络协会 ISCNU</a><a href="http://bbs.scnu.edu.cn" class="navbar-item">新陶园BBS</a><a href="http://wiki.scnu.edu.cn" class="navbar-item">华师百科</a><a href="http://bbs.scnu.edu.cn" class="navbar-item">陶园PT</a>
+        <a href="/about" class="navbar-item">关于本网站</a><a href="https://i.scnu.edu.cn" class="navbar-item">网络协会 ISCNU</a><a href="http://bbs.scnu.edu.cn" class="navbar-item">新陶园BBS</a><a href="http://wiki.scnu.edu.cn" class="navbar-item">华师百科</a><a href="http://bbs.scnu.edu.cn" class="navbar-item">陶园PT</a>
       </div>
     </div>
   </nav>
@@ -45,7 +45,7 @@
       <div class="container">
         <div class="content  is-pulled-right">
           <a href="https://weibo.com/iscnu" class="contact contact-weibo" target="_blank"></a>
-          <a  class="contact contact-wechat" target="_blank"></a>
+          <a  class="contact contact-wechat wechat_link" target="_blank"></a>
         </div>
         <div class="content is-small has-text-left">
           <p>Copyright © 2008-2018 <a href="https://i.scnu.edu.cn/about" target="_blank">ISCNU</a> All rights Reserved.</br><a href="https://i.scnu.edu.cn/about" target="_blank" style="color:#38485a; text-decoration:none">华南师范大学网络协会</a>技术部出品</p>
@@ -54,7 +54,7 @@
     </footer>
   <script>
     (function() {
-      let wechat = document.querySelector('.contact-wechat');
+      let wechat = document.querySelector('.wechat_link');
       if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) {
         wechat.setAttribute('href', 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5OTcwMzIxNA==&scene=124#wechat_redirect')
       } else {
@@ -88,7 +88,7 @@
     if ('serviceWorker' in navigator) {
       // Use the window load event to keep the page load performant
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js');
+        navigator.serviceWorker.register('/zixi/service-worker.js');
       });
     }
   </script>
