@@ -117,6 +117,14 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsRoot
       },
       {
+        from: path.resolve(__dirname, '../dist_root/about.html'),
+        to: config.build.assetsRoot
+      },
+      {
+        from: path.resolve(__dirname, '../dist_root/about.css'),
+        to: config.build.assetsRoot
+      },
+      {
         from: path.resolve(__dirname, '../dist_root/manifest_need'),
         to: config.build.assetsRoot,
         ignore: ['.*']
