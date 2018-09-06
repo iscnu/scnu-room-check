@@ -3,8 +3,8 @@ const Router = require('koa-router');
 const router = new Router();
 
 router.get('/', async (ctx, next) => {
-    ctx.type = 'text/html';
-    ctx.body = `<h1>API of SCNU Classroom</h1>
+  ctx.type = 'text/html';
+  ctx.body = `<h1>API of SCNU Classroom</h1>
 <p>Router<span>/:part/:week/:day?</span></p>
 <table>
 <tr>
@@ -24,17 +24,17 @@ router.get('/', async (ctx, next) => {
 <tr><td>11</td><td>教B栋</td></tr>
 <tr><td>12</td><td>教C栋</td></tr>
 </table>
-`
+`;
 });
 
 router.get('/:part/:week?/:day?', async (ctx, next) => {
-    const week = ctx.params.week || ctx.state.week;
-    const day = ctx.params.day || ctx.state.day;
-    // console.log(ctx.params.part, ctx.params.week, ctx.params.day)
-    console.log(week, day, ctx.params.part)
-    let result = await getRoomStatusList(week, day, ctx.params.part);
-    ctx.type = 'application/json';
-    ctx.body = (JSON.stringify(result, null, 2));
+  const week = ctx.params.week || ctx.state.week;
+  const day = ctx.params.day || ctx.state.day;
+  // console.log(ctx.params.part, ctx.params.week, ctx.params.day)
+  // console.log(week, day, ctx.params.part)
+  let result = await getRoomStatusList(week, day, ctx.params.part);
+  ctx.type = 'application/json';
+  ctx.body = (JSON.stringify(result, null, 2));
 });
 
 module.exports = router;

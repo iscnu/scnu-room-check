@@ -11,10 +11,10 @@ module.exports = async function () {
       resolve({
         db,
         exec: function (sql) {
-          return new Promise(function (reso, reje) {
+          return new Promise(function (resolve, reject) {
             db.exec(sql, function (err) {
-              if (err) return reje(err);
-              reso({
+              if (err) return reject(err);
+              resolve({
                 changes: this.changes,
                 lastID: this.lastID
               });
@@ -22,10 +22,10 @@ module.exports = async function () {
           });
         },
         run: function (sql, params) {
-          return new Promise(function (reso, reje) {
+          return new Promise(function (resolve, reject) {
             db.run(sql, params, function (err) {
-              if (err) return reje(err);
-              reso({
+              if (err) return reject(err);
+              resolve({
                 changes: this.changes,
                 lastID: this.lastID
               });
@@ -33,21 +33,21 @@ module.exports = async function () {
           });
         },
         get: function (sql, params) {
-          return new Promise(function (reso, reje) {
+          return new Promise(function (resolve, reject) {
             db.get(sql, params, function (err, row) {
-              if (err) return reje(err);
-              reso(row);
+              if (err) return reject(err);
+              resolve(row);
             });
           });
         },
         all: function (sql, params) {
-          return new Promise(function (reso, reje) {
+          return new Promise(function (resolve, reject) {
             db.all(sql, params, function (err, result) {
-              if (err) return reje(err);
-              reso(result);
+              if (err) return reject(err);
+              resolve(result);
             });
           });
-        },
+        }
       });
     });
   });
