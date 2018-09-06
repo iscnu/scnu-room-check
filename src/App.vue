@@ -1,12 +1,16 @@
 <template>
-<div v-if="!loading" id="app">
+<div id="app">
   <group class="areaPopUp">
     <popup-picker @on-change="handleAreaChange" placeholder="请选择地点" value-text-align="center" :data="options" ref="picker" :columns="2" v-model="areaSelected" show-name></popup-picker>
   </group>
-  <Table
-    :rooms="rooms"
-    :headerList="headerList"
-  />
+  <div style="min-height: 400px;">
+    <div v-if="!areaSelected.length" class="newTip">请先点击上方按钮选择你所在的教学楼</div>
+    <Table
+      v-if="!loading"
+      :rooms="rooms"
+      :headerList="headerList"
+    />
+  </div>
   <p class="updateTime">数据更新于
     <span>
       {{updateDay}}
@@ -30,6 +34,7 @@ export default {
   data () {
     return {
       loading: '', // 是否正在请求数据 boolean
+      areaSelected: [],
       options: [{ // popup-picker 选项
         name: '石牌校区',
         value: 'sp',
@@ -105,12 +110,6 @@ export default {
       this.queryData();
     }
   },
-  mounted () {
-    // 新用户弹出选择
-    if (!window.localStorage.areaSelected) {
-      document.querySelector('.areaPopUp').querySelector('.vux-tap-active').click();
-    }
-  },
   methods: {
     queryData () {
       this.loading = true;
@@ -170,6 +169,15 @@ export default {
   }
   .vux-popup-header-left {
     color: hsl(0, 0%, 29%)  !important;
+  }
+  .newTip {
+    position: absolute;
+    top: 200px;
+    width: 100%;
+    font-size: smaller;
+    text-align: center;
+    color: rgb(85, 85, 85);
+    z-index: 0;
   }
 </style>
 <style lang="less">
