@@ -12,7 +12,6 @@
   //background: url(../src/assets/images/icon_contact.png) no-repeat;
   background-position-x: 0%;
   background-position-y: 0%;
-  background-size: auto auto;
   background-size: 65px;
 }
 .contact-weibo {
@@ -22,21 +21,14 @@
 .contact.contact-weibo:hover {
   background-position: 0 -60px;
 }
-
 .navbar-brand {
   align-items: center;
 }
-
 .main-title {
   padding: 0.5rem 0.75rem;
 }
 .mainTitle {
   padding: .35rem .35rem .2rem;
-}
-#navMenu {
-  .navbar-item {
-    padding-left: 1rem;
-  }
 }
 .contact-wechat {
   background-position: -40px 0;
