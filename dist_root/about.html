@@ -56,7 +56,7 @@
         我要自习
       </h1>
       <h2 class="subtitle">
-        这是一个查询教室使用情况的网站，通过它您可以一目了然的了解到学校教学楼当天的上课情况，方便找到合适的教室自习
+        一个让您可以方便找到合适的教室自习的网站
       </h2>
     </div>
   </div>
@@ -64,6 +64,8 @@
 <div class="container">
   <section id="content" class="section">
     <article class="content">
+      <h1>关于</h1>
+      <p>这是一个查询教室使用情况的网站，通过它您可以一目了然的了解到学校教学楼当天的上课情况，方便找到合适的教室自习</p>
       <h3>使用方法</h3>
       <p>使用的方式非常简单。在<a href="./">程序首页</a>选择要查询的地点。就能看到相应地点各个教室的使用情况。</p>
       <p><img class="image" src="static/result.jpg"></p>
@@ -144,6 +146,15 @@
     })
 
   })()
+</script>
+<script>
+  // Check that service workers are registered
+  if ('serviceWorker' in navigator) {
+    // Use the window load event to keep the page load performant
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js');
+    });
+  }
 </script>
 </body>
 </html>

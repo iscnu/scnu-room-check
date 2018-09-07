@@ -135,9 +135,16 @@ const webpackConfig = merge(baseWebpackConfig, {
         // Match any same-origin request that contains 'api'.
         urlPattern: /api/,
         handler: 'networkFirst'
-        }
+        }, {
+        urlPattern: new RegExp('^https://cdn\.jsdelivr\.net/'),
+        handler: 'cacheFirst',
+      }, {
+        urlPattern: new RegExp('^https://use\.fontawesome\.com/'),
+        handler: 'cacheFirst',
+      }
+
        ],
-      include: [/\.html$/, /\.js$/, /\.css$/, /\.png$/]
+      include: [/\.html$/, /\.js$/, /\.css$/, /\.png$/, /\.jpg$/]
     })
   ]
 })
