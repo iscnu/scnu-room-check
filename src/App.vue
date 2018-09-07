@@ -114,7 +114,7 @@ export default {
     queryData () {
       this.loading = true;
       // API: /part/week/day
-      const url = `https://i.scnu.edu.cn/ixi/api/${this.areaSelected[1]}`;
+      const url = `./api/${this.areaSelected[1]}`;
       axios.get(url, {
         headers: {},
         responseType: 'json'
