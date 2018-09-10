@@ -90,7 +90,7 @@ async function getRoomStatusList (week, day, part) {
         courseTemp[code].order.push(order);
         // 插入后排序，确保 order 从小到大
         // 修复多条数据先后顺序不同引发 order 不按从小到大顺序的 bug
-        courseTemp[code].order.sort();
+        courseTemp[code].order.sort((a, b) => a - b);
       }
     }
   });
