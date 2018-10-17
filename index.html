@@ -36,6 +36,7 @@
       <div class="navbar-end">
         <a href="./about.html" class="navbar-item">关于</a>
         <a id="pwaBtn" class="navbar-item" style="display: none">添加到主屏</a>
+        <a id="shortcutBtn" class="navbar-item" href="https://www.icloud.com/shortcuts/153b40b7e63c4b25bee77891a0b3d0cd" style="display: none">添加到捷径</a>
         <div class="navbar-item has-dropdown is-hoverable" style="padding-left: 0;">
           <a class="navbar-link">
             更多
@@ -152,6 +153,14 @@
         });
 
     })
+  </script>
+  <script>
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isIOS = (userAgent.indexOf('iphone')) || (userAgent.indexOf('ipad'));
+    const shortcutBtn = document.querySelector('#shortcutBtn');
+    if(isIOS && !window.BeforeInstallPromptEvent) {
+      shortcutBtn.style.display = 'flex';
+    }
   </script>
   </body>
 </html>
