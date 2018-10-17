@@ -15,7 +15,7 @@
     (function() {
       var hm = document.createElement("script");
       hm.src = "https://hm.baidu.com/hm.js?27e9ff3910a0106317bb3a6897cc0fa2";
-      var s = document.getElementsByTagName("script")[0]; 
+      var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
     </script>
@@ -35,6 +35,7 @@
     <div id="navMenu" class="navbar-menu">
       <div class="navbar-end">
         <a href="./about.html" class="navbar-item">关于</a>
+        <a id="pwaBtn" class="navbar-item" style="display: none">添加到主屏</a>
         <div class="navbar-item has-dropdown is-hoverable" style="padding-left: 0;">
           <a class="navbar-link">
             更多
@@ -124,6 +125,33 @@
         navigator.serviceWorker.register('./service-worker.js');
       });
     }
+  </script>
+  <script>
+    let deferredPrompt;
+    const pwaBtn = document.querySelector('#pwaBtn');
+    window.addEventListener('beforeinstallprompt', (e) => {
+      console.log("beforeinstallprompt")
+      // Prevent Chrome 67 and earlier from automatically showing the prompt
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      deferredPrompt = e;
+      pwaBtn.style.display = 'flex';
+    });
+
+    pwaBtn.addEventListener('click', (e) => {
+      pwaBtn.style.display = 'none';
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice
+        .then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the A2HS prompt');
+          } else {
+            console.log('User dismissed the A2HS prompt');
+          }
+          deferredPrompt = null;
+        });
+
+    })
   </script>
   </body>
 </html>
