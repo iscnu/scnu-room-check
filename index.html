@@ -156,7 +156,7 @@
   </script>
   <script>
     const userAgent = navigator.userAgent.toLowerCase();
-    const isIOS = (userAgent.indexOf('iphone')) || (userAgent.indexOf('ipad'));
+    const isIOS = (userAgent.indexOf('iphone') != -1) || (userAgent.indexOf('ipad') != -1);
     const shortcutBtn = document.querySelector('#shortcutBtn');
     if(isIOS && !window.BeforeInstallPromptEvent) {
       shortcutBtn.style.display = 'flex';
