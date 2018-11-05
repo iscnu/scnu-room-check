@@ -68,9 +68,10 @@ async function getRoomStatusList (week, day, part) {
   // 遍历数据
   courseList.forEach(course => {
     const { campus, place, part, order, id, name, code, teacher, department } = course;
-    // 课程代码相同就是同一门课
-    if (!courseTemp[code]) {
-      courseTemp[code] = {
+    // 课程代码相同 + 同一地点上课，才算一次课
+    const key = code + place;
+    if (!courseTemp[key]) {
+      courseTemp[key] = {
         id,
         name,
         department,
@@ -82,15 +83,15 @@ async function getRoomStatusList (week, day, part) {
       };
     } else {
       // 教师
-      if (!courseTemp[code].teacher.includes(teacher)) {
-        courseTemp[code].teacher.push(teacher);
+      if (!courseTemp[key].teacher.includes(teacher)) {
+        courseTemp[key].teacher.push(teacher);
       }
       // 节次
-      if (!courseTemp[code].order.includes(order)) {
-        courseTemp[code].order.push(order);
+      if (!courseTemp[key].order.includes(order)) {
+        courseTemp[key].order.push(order);
         // 插入后排序，确保 order 从小到大
         // 修复多条数据先后顺序不同引发 order 不按从小到大顺序的 bug
-        courseTemp[code].order.sort((a, b) => a - b);
+        courseTemp[key].order.sort((a, b) => a - b);
       }
     }
   });
