@@ -62,13 +62,19 @@ const Place = {
 // main
 (async () => {
   const db = await DB();
+
   // 初始化表格
   await db.exec(fs.readFileSync(path.join(__dirname, '..', 'data', 'init_tables.sql'), 'utf-8'));
   // 初始化课室数据
   await db.exec(fs.readFileSync(path.join(__dirname, '..', 'data', 'basic_places.sql'), 'utf-8'));
 
+  // 创建插入time表的句柄
+  const timeStatement = await db.prepare('INSERT INTO `time` (`course_id`, `day`, `order`) VALUES (?, ?, ?)');
+  // 创建插入weeks表的句柄
+  const weeksStatement = await db.prepare('INSERT INTO `weeks` (`course_id`, `week`) VALUES (?, ?)');
+
   let lineReader = readline.createInterface({
-    input: require('fs').createReadStream(path.join(__dirname, '..', 'data', config.semester, `${config.semester}.csv`))
+    input: fs.createReadStream(path.join(__dirname, '..', 'data', config.semester, `${config.semester}.csv`))
   });
 
   lineReader.on('line', async function (line) {
@@ -102,13 +108,14 @@ const Place = {
     // 节次
     for (let index = 0; index < orders.length; index++) {
       const order = orders[index];
-      db.run('INSERT INTO `time` (`course_id`, `day`, `order`) VALUES (?, ?, ?)', [lastID, day, order]);
+      timeStatement.run([lastID, day, order]);
     }
     // 周次
     for (let index = 0; index < weeks.length; index++) {
       const week = weeks[index];
-      db.run('INSERT INTO `weeks` (`course_id`, `week`) VALUES (?, ?)', [lastID, week]);
+      weeksStatement.run([lastID, week]);
     }
+
     console.log('finish: ', lastID);
   });
 })();

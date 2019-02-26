@@ -47,6 +47,40 @@ module.exports = async function () {
               resolve(result);
             });
           });
+        },
+        close:function(){
+          return new Promise(function (resolve, reject) {
+            db.close(function (err) {
+              if (err) return reject(err);
+              resolve();
+            });
+          });
+        },
+        prepare: function (sql) {
+          return new Promise(function (resolve, reject) {
+            const statement = db.prepare(sql, function (err) {
+              if (err) return reject(err);
+              resolve({
+                statement,
+                run: function (sql) {
+                  return new Promise(function (resolve, reject) {
+                    statement.run(sql, function (err) {
+                      if (err) return reject(err);
+                      resolve(statement);
+                    });
+                  });
+                },
+                finalize:function(){
+                  return new Promise(function (resolve, reject) {
+                    statement.finalize(function (err) {
+                      if (err) return reject(err);
+                      resolve();
+                    });
+                  });
+                }
+              });
+            })
+          })
         }
       });
     });
