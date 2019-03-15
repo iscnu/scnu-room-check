@@ -1,4 +1,3 @@
-const getRoomStatusList = require('../common/room_status');
 const Router = require('koa-router');
 const router = new Router();
 
@@ -23,22 +22,13 @@ router.get('/', async (ctx, next) => {
 <tr><td>10</td><td>教A栋</td></tr>
 <tr><td>11</td><td>教B栋</td></tr>
 <tr><td>12</td><td>教C栋</td></tr>
-</table>
+
+/lib/:campus
+图书馆空座位
+dxc / sp
+
 `;
 });
 
-router.get('/:part/:week?/:day?', async (ctx, next) => {
-  const week = ctx.params.week || ctx.state.week;
-  const day = ctx.params.day || ctx.state.day;
-  // console.log(ctx.params.part, ctx.params.week, ctx.params.day)
-  // console.log(week, day, ctx.params.part)
-  let data = await getRoomStatusList(week, day, ctx.params.part);
-  let result = {
-    day: [false, '本周一', '本周二', '本周三', '本周四', '本周五', '本周六', '本周日'][day],
-    data
-  };
-  ctx.type = 'application/json';
-  ctx.body = (JSON.stringify(result, null, 2));
-});
-
+router.get('/:part/:week?/:day?', require('./routes/classroom'));
 module.exports = router;
