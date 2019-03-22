@@ -2,7 +2,7 @@ const getRoomStatusList = require('../../common/room_status');
 const got = require('got');
 const qs = require('querystring');
 const request = got.extend({
-  baseUrl: 'http://lib-ic.scnu.edu.cn:8080/ClientWeb/pro/ajax/device.aspx',
+  baseUrl: 'http://202.116.41.201:8080/ClientWeb/pro/ajax/device.aspx',
   json: true
 });
 
