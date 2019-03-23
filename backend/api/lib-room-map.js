@@ -48,15 +48,15 @@ module.exports = {
     },
     {
       roomId: 100456973,
-      roomName: '三楼艺术馆'
+      name: '三楼艺术馆'
     },
     {
       roomId: 100456975,
-      roomName: '三楼文学馆A区'
+      name: '三楼文学馆A区'
     },
     {
       roomId: 100456977,
-      roomName: '四楼教育与体育学馆'
+      name: '四楼教育与体育学馆'
     },
     {
       roomId: 100456979,
