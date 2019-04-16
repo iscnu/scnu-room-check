@@ -27,10 +27,12 @@ module.exports = async (ctx, next) => {
           display: 'fp',
           md: 'd',
           room_id: item.roomId,
+          purpose: '',
+          selectOpenAty: '',
           cld_name: 'default',
           date: dashSpeartedStr,
-          fr_start: `${now.getHours()}:${now.getMinutes()}`,
-          fr_end: `${endTime.getHours()}:${endTime.getMinutes()}`,
+          fr_start: `${now.getHours() < 10 ? '0' + now.getHours() : now.getHours()}:${now.getMinutes < 10 ? '0' + now.getMinutes() : now.getMinutes()}`,
+          fr_end: `${endTime.getHours() < 10 ? '0' + endTime.getHours() : endTime.getHours()}:${endTime.getMinutes() < 10 ? '0' + endTime.getMinutes() : endTime.getMinutes()}`,
           act: 'get_rsv_sta',
           _: now.getTime()
         };
