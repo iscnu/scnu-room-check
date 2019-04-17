@@ -3,13 +3,14 @@
   <group class="areaPopUp">
     <popup-picker @on-change="handleAreaChange" placeholder="请选择地点" value-text-align="center" :data="options" ref="picker" :columns="2" v-model="areaSelected" show-name></popup-picker>
   </group>
-  <div style="min-height: 400px;">
-    <div v-if="!areaSelected.length" class="newTip">请先点击上方按钮选择你所在的教学楼</div>
+  <div style="min-height: 400px;background-color: #fff;">
+    <div v-if="areaSelected.length < 1" class="newTip">请先点击上方按钮选择你所在的地方</div>
     <Table
-      v-if="!loading"
+      v-if="areaSelected[1] && !loading && areaSelected[1].indexOf('lib') === -1"
       :rooms="rooms"
       :headerList="headerList"
     />
+    <Library v-if="areaSelected[1] && !loading && areaSelected[1].indexOf('lib') !== -1" :room-data="rooms" />
   </div>
   <p v-if="areaSelected.length && !loading" class="updateTime">数据更新于
     <span>
@@ -23,9 +24,11 @@
 import { PopupPicker, Cell, Group } from 'vux';
 import Table from './components/table';
 import axios from 'axios';
+import Library from './components/Library';
 export default {
   name: 'App',
   components: {
+    Library,
     Table,
     Group,
     Cell,
@@ -48,6 +51,10 @@ export default {
         value: 'nh',
         parent: 0
       }, {
+        name: '图书馆',
+        value: 'lib/sp',
+        parent: 'sp'
+      }, {
         name: '一课北座',
         value: '1',
         parent: 'sp'
@@ -59,6 +66,10 @@ export default {
         name: '一课东西座',
         value: '3',
         parent: 'sp'
+      }, {
+        name: '图书馆',
+        value: 'lib/dxc',
+        parent: 'dxc'
       }, {
         name: '教1栋',
         value: '4',
@@ -95,6 +106,10 @@ export default {
         name: '教C栋',
         value: '12',
         parent: 'nh'
+      }, {
+        name: '图书馆（暂无数据）',
+        value: 'lib/nh',
+        parent: 'nh'
       }],
       headerList: ['教室', '1-2节', '3-4节', '5-6节', '7-8节', '9-11节'], // 表头
       rooms: [], // API得到的各个课室的信息 Array
@@ -112,16 +127,25 @@ export default {
   },
   methods: {
     queryData () {
+      if (this.areaSelected[1] === 'lib/nh') {
+        this.areaSelected = [];
+        return;
+      }
       this.loading = true;
       // API: /part/week/day
-      const url = `./api/${this.areaSelected[1]}`;
+      // API: /lib/:campus
+      const url = `https://i.scnu.edu.cn/zixi/api/${this.areaSelected[1]}`;
       axios.get(url, {
         headers: {},
         responseType: 'json'
       })
         .then(res => {
           this.rooms = res.data.data;
-          this.updateDay = res.data.day;
+          if (res.data.day) this.updateDay = res.data.day;
+          if (res.data.lastUpdated) {
+            const d = new Date(res.data.lastUpdated);
+            this.updateDay = d.toTimeString().substring(0, 5);
+          }
           this.loading = false;
         }).catch(err => {
           console.log(err);
