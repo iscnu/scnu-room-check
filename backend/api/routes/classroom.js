@@ -31,8 +31,8 @@ module.exports = async (ctx, next) => {
           selectOpenAty: '',
           cld_name: 'default',
           date: dashSpeartedStr,
-          fr_start: `${now.getHours() < 10 ? '0' + now.getHours() : now.getHours()}:${now.getMinutes < 10 ? '0' + now.getMinutes() : now.getMinutes()}`,
-          fr_end: `${endTime.getHours() < 10 ? '0' + endTime.getHours() : endTime.getHours()}:${endTime.getMinutes() < 10 ? '0' + endTime.getMinutes() : endTime.getMinutes()}`,
+          fr_start: now.toTimeString().substring(0, 5),
+          fr_end: endTime.toTimeString().substring(0, 5),
           act: 'get_rsv_sta',
           _: now.getTime()
         };
