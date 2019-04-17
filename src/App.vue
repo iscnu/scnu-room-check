@@ -134,7 +134,7 @@ export default {
       this.loading = true;
       // API: /part/week/day
       // API: /lib/:campus
-      const url = `https://i.scnu.edu.cn/zixi/api/${this.areaSelected[1]}`;
+      const url = `./api/${this.areaSelected[1]}`;
       axios.get(url, {
         headers: {},
         responseType: 'json'
