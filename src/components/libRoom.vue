@@ -1,6 +1,6 @@
 <template>
 <div class="room box" :class="[boxColor] ">
-  <img src="/static/room.png" style="width: 4.5rem;height: 4.5rem;" alt="自习室">
+  <img src="static/room.png" style="width: 4.5rem;height: 4.5rem;" alt="自习室">
   <div class="room-info is-size-5-touch is-size-3-widescreen">
     <span class="name">{{this.name}}</span>
     <div class="numbers">
