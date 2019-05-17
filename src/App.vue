@@ -5,6 +5,9 @@
   </group>
   <div style="min-height: 400px;background-color: #fff;">
     <div v-if="areaSelected.length < 1" class="newTip">请先点击上方按钮选择你所在的地方</div>
+    <div v-if="loading" class="is-flex loaderContainer">
+      <div class="loader"></div>
+    </div>
     <Table
       v-if="areaSelected[1] && !loading && areaSelected[1].indexOf('lib') === -1"
       :rooms="rooms"
@@ -51,10 +54,6 @@ export default {
         value: 'nh',
         parent: 0
       }, {
-        name: '图书馆',
-        value: 'lib/sp',
-        parent: 'sp'
-      }, {
         name: '一课北座',
         value: '1',
         parent: 'sp'
@@ -68,8 +67,8 @@ export default {
         parent: 'sp'
       }, {
         name: '图书馆',
-        value: 'lib/dxc',
-        parent: 'dxc'
+        value: 'lib/sp',
+        parent: 'sp'
       }, {
         name: '教1栋',
         value: '4',
@@ -93,6 +92,10 @@ export default {
       }, {
         name: '教6栋',
         value: '9',
+        parent: 'dxc'
+      }, {
+        name: '图书馆',
+        value: 'lib/dxc',
         parent: 'dxc'
       }, {
         name: '教A栋',
